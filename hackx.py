@@ -20,25 +20,19 @@ image2 = Image.open('muj logo.png')
 st.image(image2, width=200)
 
 st.markdown(
-    """
-    <style>
-        /* Select the image by its data-testid attribute */
-        [data-testid="stImage"] {
-            /* Set the image to float to the right */
-            float: right;
-            /* Clear any floats before it to prevent overlap */
-            clear: both;
-        }
-    </style>
-    """,
+    "<div style='display: flex; align-items: center; margin-bottom: -35px;'>"
+    "<h1 style='color:#F862FC; margin-center: 10px;'>404 Not Found,</h1>"
+    "</div>"
+    "<h1 style='color:black; margin-center: 10px;'>But We Found It!</h1>"
+    "</div>",
     unsafe_allow_html=True
 )
 
-st.markdown(
-    "<div style='display: flex; align-items: center; margin-bottom: -35px;'>"
-    "<h1 style='color:#F862FC; margin-center: 10px;'>yoU aRe reaL</h1>",
-    unsafe_allow_html=True
-)
+# st.markdown(
+#     "<div style='display: flex; align-items: center; margin-bottom: -35px;'>"
+#     "<h1 style='color:#F862FC; margin-center: 10px;'>yoU aRe reaL</h1>",
+#     unsafe_allow_html=True
+# )
 
 # image=Image.open('phising1.jpeg')
 # width=750
