@@ -16,7 +16,7 @@ from PIL import Image
 image = Image.open('hackxlogowhite.png')
 st.image(image, width=200)
 
-image2 = Image.open('your_image.png')
+image2 = Image.open('muj logo.png')
 st.image(image2, width=200)
 
 st.markdown(
