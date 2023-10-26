@@ -13,23 +13,11 @@ import pandas as pd
 from extract_features import ExtractFeatures
 from PIL import Image
 
-# image = Image.open('hackxlogowhite.png')
-# st.image(image, width=200)
+image = Image.open('hackxlogowhite.png')
+st.image(image, width=200)
 
-# image2 = Image.open('muj logo.png')
-# st.image(image2, width=200)
-
-col1, col2 = st.columns([1, 1])
-
-# The first column contains the first image and takes up the left side
-with col1:
-    image = Image.open('hackxlogowhite.png')
-    st.image(image, width=200, use_container_width=True)
-
-# The second column contains the second image and takes up the right side
-with col2:
-    image2 = Image.open('muj logo.png')
-    st.image(image2, width=200, use_container_width=True)
+image2 = Image.open('muj logo.png')
+st.image(image2, width=200)
 
 st.markdown(
     """
