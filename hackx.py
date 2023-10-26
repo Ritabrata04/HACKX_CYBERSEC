@@ -13,11 +13,14 @@ import pandas as pd
 from extract_features import ExtractFeatures
 from PIL import Image
 
-image = Image.open('hackxlogowhite.png')
-st.image(image, width=200)
+# image = Image.open('hackxlogowhite.png')
+# st.image(image, width=200)
 
-image2 = Image.open('muj logo.png')
-st.image(image2, width=200)
+# image2 = Image.open('muj logo.png')
+# st.image(image2, width=200)
+
+st.write('<div style="float: left;"><img src="hackxlogowhite.png" width="200"></div>', unsafe_allow_html=True)
+st.write('<div style="float: right;"><img src="muj logo.png" width="200"></div>', unsafe_allow_html=True)
 
 st.markdown(
     """
