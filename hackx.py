@@ -34,11 +34,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Display your image
-
-image1 = Image.open('muj logo.png')
-st.image(image1, width=100)
-
 st.markdown(
     "<div style='display: flex; align-items: center; margin-bottom: -35px;'>"
     "<h1 style='color:#F862FC; margin-center: 10px;'>yoU aRe reaL</h1>",
