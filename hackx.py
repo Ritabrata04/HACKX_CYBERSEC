@@ -18,6 +18,9 @@ from PIL import Image
 image = Image.open('hackxlogowhite.png')
 st.image(image, width=200)
 
+image1 = Image.open('muj logo.png')
+st.image1(image1, width=100)
+
 st.markdown(
     "<div style='display: flex; align-items: center; margin-bottom: -35px;'>"
     "<h1 style='color:black; margin-center: 10px;'> yoU</h1>"
