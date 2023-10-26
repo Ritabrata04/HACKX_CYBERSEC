@@ -7,8 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/13PhvS9RucBMO-DViNrLIu1aaYttGWiT0
 """
 
-
-
 import streamlit as st
 import pickle
 import pandas as pd
@@ -18,6 +16,23 @@ from PIL import Image
 image = Image.open('hackxlogowhite.png')
 st.image(image, width=200)
 
+st.markdown(
+    """
+    <style>
+        /* Select the image by its data-testid attribute */
+        [data-testid="stImage"] {
+            /* Set the image to float to the right */
+            float: right;
+            /* Clear any floats before it to prevent overlap */
+            clear: both;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Display your image
+st.image("your_image.png")
 image1 = Image.open('muj logo.png')
 st.image(image1, width=100)
 
