@@ -27,11 +27,11 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-image=Image.open('phising1.jpeg')
-width=750
-height=700
-image_new=image.resize((width,height))
-st.image(image_new)
+# image=Image.open('phising1.jpeg')
+# width=750
+# height=700
+# image_new=image.resize((width,height))
+# st.image(image_new)
 
 @st.cache_resource
 def get_model():
