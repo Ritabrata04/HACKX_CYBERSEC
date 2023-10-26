@@ -15,7 +15,7 @@ import pandas as pd
 from extract_features import ExtractFeatures
 from PIL import Image
 
-image = Image.open('muj hackx logo.jpeg')
+image = Image.open('hackxlogowhite.png')
 st.image(image, width=150)
 
 st.markdown(
