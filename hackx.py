@@ -7,13 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/13PhvS9RucBMO-DViNrLIu1aaYttGWiT0
 """
 
-pip install streamlit
 
-streamlit hello
-
-pip install pandas tldextract urllib3 requests ipwhois scikit-learn xgboost
-
-pip install whois
 
 import streamlit as st
 import pickle
