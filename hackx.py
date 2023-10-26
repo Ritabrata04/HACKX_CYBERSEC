@@ -91,9 +91,9 @@ if input_url != "":
         phishing_url_detector = get_model()
         prediction = phishing_url_detector.predict(features_dataframe)
         if prediction == int(True):
-            prediction_str = 'Phishing Website. Do not click!'
+            prediction_str = 'This website might be malicious!'
         elif prediction == int(False):
-            prediction_str = 'Not Phishing Website, stay safe!'
+            prediction_str = 'Website is safe to proceed!'
         else:
             prediction_str = ''
         st.write(prediction_str)
