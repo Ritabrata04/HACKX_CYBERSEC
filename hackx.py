@@ -13,14 +13,24 @@ import pandas as pd
 from extract_features import ExtractFeatures
 from PIL import Image
 
+# image2 = Image.open('muj logo.png')
+# st.image(image2, width=200)
+
+# image = Image.open('hackxlogowhite.png')
+# # st.image(image, width=200)
+# col1, col2, col3 = st.columns([20, 10, 0.1])
+# col2.image(image, use_column_width=True)
+
 image2 = Image.open('muj logo.png')
-st.image(image2, width=200)
-
 image = Image.open('hackxlogowhite.png')
-# st.image(image, width=200)
-col1, col2, col3 = st.columns([20, 10, 0.1])
-col2.image(image, use_column_width=True)
 
+col1, col2, col3 = st.columns([1, 1, 1])
+
+with col2:
+    st.image(image2, width=200)
+
+with col3:
+    st.image(image, width=200)
 
 st.markdown(
     "<div style='display: flex; align-items: center; margin-bottom: -35px;'>"
