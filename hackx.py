@@ -19,8 +19,12 @@ from PIL import Image
 # image2 = Image.open('muj logo.png')
 # st.image(image2, width=200)
 
-st.write('<div style="float: left;"><img src="hackxlogowhite.png" width="200"></div>', unsafe_allow_html=True)
-st.write('<div style="float: right;"><img src="muj logo.png" width="200"></div>', unsafe_allow_html=True)
+with st.beta_container():
+    st.image(Image.open('hackxlogowhite.png'), width=200)
+
+# Create another container for the second image and align it to the right
+with st.beta_container():
+    st.image(Image.open('muj logo.png'), width=200)
 
 st.markdown(
     """
