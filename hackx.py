@@ -21,9 +21,7 @@ st.image(image, width=200)
 st.markdown(
     "<div style='display: flex; align-items: center; margin-bottom: -35px;'>"
     "<h1 style='color:#003E7F; margin-center: 10px;'> yoU</h1>"
-    "</div>"
     "<h1 style='color:pink; margin-center: 10px;'> aRe</h1>"
-    "</div>"
     "<h1 style='color:#003E7F; margin-center: 10px;'>reaL</h1>"
     "</div>",
     unsafe_allow_html=True
