@@ -16,7 +16,7 @@ from extract_features import ExtractFeatures
 from PIL import Image
 
 image = Image.open('hackxlogowhite.png')
-st.image(image, width=150)
+st.image(image, width=200)
 
 st.markdown(
     "<div style='display: flex; align-items: center; margin-bottom: -35px;'>"
