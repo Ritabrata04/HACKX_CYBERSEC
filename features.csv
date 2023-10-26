@@ -1,0 +1,15 @@
+- length_url: Length of the URL.
+- domain_length: Length of the domain name in the URL.
+- domain_in_ip: Whether the domain is represented as an IP address.
+- directory_length: Length of the directory path in the URL.
+- file_length: Length of the file name in the URL.
+- params_length: Length of the query parameters in the URL.
+- qty_params: Number of query parameters in the URL.
+- time_domain_activation: Time of domain activation.
+- time_domain_expiration: Time of domain expiration.
+- tls_ssl_certificate: Availability of TLS/SSL certificate.
+- email_in_url: Whether an email address is present in the URL.
+- asn_ip: Autonomous System Number (ASN) associated with the IP address.
+- qty_redirects: Number of redirects encountered.
+- qty_char_domain: Number of specific characters in the domain name.
+- qty_tld_url: Number of top-level domains in the URL.
