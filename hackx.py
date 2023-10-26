@@ -58,10 +58,8 @@ def get_model():
         phishing_url_detector = pickle.load(pickle_model)
     return phishing_url_detector
 
-st.header("Are you sure your 'bank' sent that link?")
-
 # Takes in user input
-input_url = st.text_area("Put in your sus site link here: ")
+input_url = st.text_area("Are you sure your 'bank' sent that link?")
 
 if input_url != "":
 
