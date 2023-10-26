@@ -15,7 +15,7 @@ from PIL import Image
 
 image = Image.open('hackxlogowhite.png')
 # st.image(image, width=200)
-col1, col2, col3 = st.columns([0.1, 0.1, 3])
+col1, col2, col3 = st.columns([5, 0.1, 3])
 col2.image(image, use_column_width=True)
 
 image2 = Image.open('muj logo.png')
