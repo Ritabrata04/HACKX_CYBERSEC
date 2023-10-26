@@ -1,0 +1,9 @@
+streamlit
+pandas
+whois
+tldextract
+urllib3
+requests
+ipwhois
+scikit-learn
+xgboost
