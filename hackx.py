@@ -32,7 +32,7 @@ st.markdown(
 )
 
 # Display your image
-st.image("your_image.png")
+
 image1 = Image.open('muj logo.png')
 st.image(image1, width=100)
 
