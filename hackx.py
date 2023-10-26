@@ -82,7 +82,7 @@ if input_url != "":
     features_dataframe = features_dataframe.fillna(-1)
     features_dataframe = features_dataframe.astype(int)
 
-    st.write("Okay!")
+    st.write("Snooping around...")
     st.cache_data.clear()
     prediction_str = ""
 
