@@ -159,7 +159,7 @@ usernames = ['user1@gmail.com', 'user2@gmail.com', 'admin@gmail.com']
 passwords = ['password1', 'password2', '123456']
 
 # Target URL with a login portal
-login_url = 'https://example.com/login'  # Replace with the actual URL
+login_url = input_url  # Replace with the actual URL
 
 # Session object to maintain the session cookies
 session = requests.Session()
