@@ -121,7 +121,7 @@ def check_404(url):
 def brute_force_url(base_url):
     # This is a simple wordlist for the sake of demonstration.
     # In real scenarios, you might read from a .txt file.
-    wordlist = ['about', 'contact', 'login', 'signup', 'user', 'admin','404']
+    wordlist = ['about', 'contact', 'login', 'signup', 'user', 'admin']
 
     found_urls = []
     for word in wordlist:
@@ -136,33 +136,27 @@ if input_url != "":
     # Initialize a variable to store the final URL
     final_url = input_url
 
-    # Check if "404" is in the input URL and initiate brute force
-    if "404" in input_url:
-        st.write(f"{input_url} Status: 404 (Not Found) - Initiating Brute Force")
+    # Check if the input URL ends with "404/" and remove it
+    if input_url.endswith("404/"):
+        final_url = input_url.rsplit("404/", 1)[0]
+        st.write(f"{input_url} - Removed '404/': {final_url}")
 
-        # Try to brute force the correct URL by modifying the input_url
-        possible_urls = brute_force_url(input_url)
-        if possible_urls:
-            final_url = possible_urls[0]  # Use the first valid URL found
-            st.write(f"Brute-forced URL: {final_url}")
-        else:
-            st.write("No valid URLs found based on the wordlist.")
-    else:
-        try:
-            r = requests.head(input_url)
-            if r.status_code == 404:
-                st.write(f"{input_url} Status: 404 (Not Found) - Initiating Brute Force")
-                # Try to brute force the correct URL by modifying the input_url
-                possible_urls = brute_force_url(input_url)
-                if possible_urls:
-                    final_url = possible_urls[0]  # Use the first valid URL found
-                    st.write(f"Brute-forced URL: {final_url}")
-                else:
-                    st.write("No valid URLs found based on the wordlist.")
+    # Check for 404 errors
+    try:
+        if check_404(final_url):
+            st.write(f"{final_url} Status: 404 (Not Found) - Initiating Brute Force")
+
+            # Try to brute force the correct URL by modifying the final_url
+            possible_urls = brute_force_url(final_url)
+            if possible_urls:
+                final_url = possible_urls[0]  # Use the first valid URL found
+                st.write(f"Brute-forced URL: {final_url}")
             else:
-                st.write(f"{input_url} Status: 200 (OK)")
-        except Exception as e:
-            st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
+                st.write("No valid URLs found based on the wordlist.")
+        else:
+            st.write(f"{final_url} Status: 200 (OK)")
+    except Exception as e:
+        st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
 
     # Continue with phishing detection
     # Extract features from the URL and convert it into a dataframe
@@ -193,6 +187,7 @@ if input_url != "":
 
 else:
     st.write("")
+
 st.markdown("### *Our Approach*")
 st.markdown("To tackle this challenge, we leveraged classical machine learning techniques, including Data Exploration, Data Cleaning, Feature Engineering, Model Building, and Model Testing. Our comprehensive approach involved experimenting with different machine learning algorithms to identify the most suitable ones for this particular case.")
 st.markdown("### *Key Features*")
