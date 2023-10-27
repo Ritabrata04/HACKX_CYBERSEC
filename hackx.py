@@ -54,17 +54,17 @@ def get_model():
 # Takes in user input
 input_url = st.text_area("Are you sure your 'bank' sent that link?")
 
-if input_url != "": #WHAT IS THIS DOING HERE?
+# if input_url != "": #WHAT IS THIS DOING HERE?
 
-    # Extracts features from the URL and converts it into a dataframe
-    features_url = ExtractFeatures().url_to_features(url=input_url)
-    features_dataframe = pd.DataFrame.from_dict([features_url])
-    features_dataframe = features_dataframe.fillna(-1)
-    features_dataframe = features_dataframe.astype(int)
+#     # Extracts features from the URL and converts it into a dataframe
+#     features_url = ExtractFeatures().url_to_features(url=input_url)
+#     features_dataframe = pd.DataFrame.from_dict([features_url])
+#     features_dataframe = features_dataframe.fillna(-1)
+#     features_dataframe = features_dataframe.astype(int)
 
-    st.write("Snooping around...")
-    st.cache_data.clear()
-    prediction_str = ""
+#     st.write("Snooping around...")
+#     st.cache_data.clear()
+#     prediction_str = ""
 
 import requests
 
@@ -102,6 +102,10 @@ def brute_force_url(base_url):
 #         return False
 
 if input_url != "":
+    features_url = ExtractFeatures().url_to_features(url=input_url)
+    features_dataframe = pd.DataFrame.from_dict([features_url])
+    features_dataframe = features_dataframe.fillna(-1)
+    features_dataframe = features_dataframe.astype(int)
     # Initialize a variable to store the final URL
     final_url = input_url
 
@@ -155,12 +159,6 @@ if input_url != "":
         st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
     except Exception as e:
         print(e)
-
-    # Extracts features from the URL and converts it into a dataframe
-        features_url = ExtractFeatures().url_to_features(url=input_url)
-        features_dataframe = pd.DataFrame.from_dict([features_url])
-        features_dataframe = features_dataframe.fillna(-1)
-        features_dataframe = features_dataframe.astype(int)
         st.error("Not sure what went wrong. We'll get back to you shortly.")
 
 # if input_url != "":
