@@ -121,7 +121,7 @@ def check_404(url):
 def brute_force_url(base_url):
     # This is a simple wordlist for the sake of demonstration.
     # In real scenarios, you might read from a .txt file.
-    wordlist = ['about', 'contact', 'login', 'signup', 'user', 'admin']
+    wordlist = ['about', 'contact', 'login', 'signup', 'user', 'admin','404']
 
     found_urls = []
     for word in wordlist:
