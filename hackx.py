@@ -100,22 +100,6 @@ if input_url != "":
         final_url = input_url.rsplit("404/", 1)[0]
         st.write(f"{input_url} - Removed '404/': {final_url}")
 
-    # Check for 404 errors
-    # try:
-    #     if check_404(final_url):
-    #         st.write(f"{final_url} Status: 404 (Not Found) - Initiating Brute Force")
-
-    #         # Try to brute force the correct URL by modifying the final_url
-    #         possible_urls = brute_force_url(final_url)
-    #         if possible_urls:
-    #             final_url = possible_urls[0]  # Use the first valid URL found
-    #             st.write(f"Brute-forced URL: {final_url}")
-    #         else:
-    #             st.write("No valid URLs found based on the wordlist.")
-    #     else:
-    #         st.write(f"{final_url} Status: 200 (OK)")
-    # except Exception as e:
-    #     st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
     try:
         response = requests.get(final_url)  # Send a GET request to the URL
         if response.status_code == 200:
@@ -145,7 +129,7 @@ if input_url != "":
     features_dataframe = features_dataframe.fillna(-1)
     features_dataframe = features_dataframe.astype(int)
 
-    st.write("Snooping around...")
+    # st.write("Snooping around...")
     st.cache_data.clear()
     prediction_str = ""
 
