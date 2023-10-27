@@ -74,20 +74,6 @@ def get_model():
 # Takes in user input
 input_url = st.text_area("Are you sure your 'bank' sent that link?")
 
-import requests
-
-# Define a function to check URL status for a list of URLs
-def get_url_status(urls):
-    status_results = []
-    
-    for url in urls:
-        try:
-            r = requests.get(url)
-            status_results.append((url, r.status_code))
-        except Exception as e:
-            status_results.append((url, "NA FAILED TO CONNECT", str(e)))
-    
-    return status_results
 
 if input_url != "":
 
@@ -120,6 +106,23 @@ if input_url != "":
 
 else:
     st.write("")
+
+st.markdown("### *Check URL Statuses*")
+
+# User can input a list of URLs to check
+input_urls = st.text_area("Enter a list of URLs to check (one URL per line)")
+
+if input_urls:
+    # Split the input into a list of URLs
+    urls_to_check = input_urls.split('\n')
+    
+    # Call the function to check URL statuses
+    status_results = get_url_status(urls_to_check)
+    
+    # Display the results
+    st.write("URL Status Results:")
+    for result in status_results:
+        st.write(result)
 
 st.markdown("### *Our Approach*")
 st.markdown("To tackle this challenge, we leveraged classical machine learning techniques, including Data Exploration, Data Cleaning, Feature Engineering, Model Building, and Model Testing. Our comprehensive approach involved experimenting with different machine learning algorithms to identify the most suitable ones for this particular case.")
