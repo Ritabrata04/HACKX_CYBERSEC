@@ -74,6 +74,21 @@ def get_model():
 # Takes in user input
 input_url = st.text_area("Are you sure your 'bank' sent that link?")
 
+import requests
+
+# Define a function to check URL status for a list of URLs
+def get_url_status(urls):
+    status_results = []
+    
+    for url in urls:
+        try:
+            r = requests.get(url)
+            status_results.append((url, r.status_code))
+        except Exception as e:
+            status_results.append((url, "NA FAILED TO CONNECT", str(e)))
+    
+    return status_results
+
 if input_url != "":
 
     # Extracts features from the URL and converts it into a dataframe
