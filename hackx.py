@@ -107,31 +107,30 @@ if input_url != "":
 # else:
 #     st.write("")
 
-    try:
-            r = requests.get(input_url)
-            url_status = r.status_code
-            st.write(f"{input_url} Status: {url_status}")
-        except Exception as e:
-            st.write(f"{input_url} NA FAILED TO CONNECT {str(e)}")
+      try:
+          r = requests.get(input_url)
+          url_status = r.status_code
+          st.write(f"{input_url} Status: {url_status}")
+      except Exception as e:
+          st.write(f"{input_url} NA FAILED TO CONNECT {str(e)}")
+          
+      try:
+          phishing_url_detector = get_model()
+          prediction = phishing_url_detector.predict(features_dataframe)
+          if prediction == int(True):
+              prediction_str = 'This website might be malicious!'
+          elif prediction == int(False):
+              prediction_str = 'Website is safe to proceed!'
+          else:
+              prediction_str = ''
+              st.write(prediction_str)
+              st.write(features_dataframe)
+      except Exception as e:
+          print(e)
+          st.error("Not sure, what went wrong. We'll get back to you shortly!")
     
-        # Predict outcome using extracted features
-        try:
-            phishing_url_detector = get_model()
-            prediction = phishing_url_detector.predict(features_dataframe)
-            if prediction == int(True):
-                prediction_str = 'This website might be malicious!'
-            elif prediction == int(False):
-                prediction_str = 'Website is safe to proceed!'
-            else:
-                prediction_str = ''
-            st.write(prediction_str)
-            st.write(features_dataframe)
-        except Exception as e:
-            print(e)
-            st.error("Not sure, what went wrong. We'll get back to you shortly!")
-    
-    else:
-        st.write("")
+else:
+    st.write("")
 
 st.markdown("### *Our Approach*")
 st.markdown("To tackle this challenge, we leveraged classical machine learning techniques, including Data Exploration, Data Cleaning, Feature Engineering, Model Building, and Model Testing. Our comprehensive approach involved experimenting with different machine learning algorithms to identify the most suitable ones for this particular case.")
