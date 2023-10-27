@@ -155,7 +155,7 @@ else:
 import requests
 
 # List of username and password pairs to try
-usernames = ['user1', 'user2', 'admin']
+usernames = ['user1@gmail.com', 'user2@gmail.com', 'admin@gmail.com']
 passwords = ['password1', 'password2', '123456']
 
 # Target URL with a login portal
