@@ -138,16 +138,7 @@ if input_url != "":
     except Exception as e:
         print(e)
         st.error("Not sure what went wrong. We'll get back to you shortly.")
-    else:
-        try:
-            try:
-                ip_addresses = socket.getaddrinfo(domain, None)
-            except socket.gaierror as e:
-                st.write(f"{final_url} Site does not exist")
-            features_url = ExtractFeatures().url_to_features(url=final_url)
-        except Exception as e:
-            print(e)
-            st.error("Not sure what went wrong. We'll get back to you shortly.")
+
 
     features_url = ExtractFeatures().url_to_features(url=final_url)
     features_dataframe = pd.DataFrame.from_dict([features_url])
