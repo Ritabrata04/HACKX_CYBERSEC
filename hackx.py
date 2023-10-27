@@ -177,8 +177,8 @@ for username in usernames:
         response = session.post(login_url, data=login_data)
 
         # Check if the login was successful based on the response
-        if 'Login Successful' in response.text:
-            print(f"Successful login - Username: {username}, Password: {password}")
+        if not 'Login Successful' in response.text:
+            print(f"Unsuccessful login - Username: {username}, Password: {password}")
             break
 
 # Close the session
