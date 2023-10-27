@@ -136,23 +136,33 @@ if input_url != "":
     # Initialize a variable to store the final URL
     final_url = input_url
 
-    # Check for 404 errors and attempt to find the correct URL
-    try:
-        if check_404(input_url):
-            st.write(f"{input_url} Status: 404 (Not Found)")
+    # Check if "404" is in the input URL and initiate brute force
+    if "404" in input_url:
+        st.write(f"{input_url} Status: 404 (Not Found) - Initiating Brute Force")
 
-            # Try to brute force the correct URL by modifying the input_url
-            possible_urls = brute_force_url(input_url)
-            if possible_urls:
-                final_url = possible_urls[0]  # Use the first valid URL found
-                st.write(f"Brute-forced URL: {final_url}")
-            else:
-                st.write("No valid URLs found based on the wordlist.")
+        # Try to brute force the correct URL by modifying the input_url
+        possible_urls = brute_force_url(input_url)
+        if possible_urls:
+            final_url = possible_urls[0]  # Use the first valid URL found
+            st.write(f"Brute-forced URL: {final_url}")
         else:
-            st.write(f"{input_url} Status: 200 (OK)")
-
-    except Exception as e:
-        st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
+            st.write("No valid URLs found based on the wordlist.")
+    else:
+        try:
+            r = requests.head(input_url)
+            if r.status_code == 404:
+                st.write(f"{input_url} Status: 404 (Not Found) - Initiating Brute Force")
+                # Try to brute force the correct URL by modifying the input_url
+                possible_urls = brute_force_url(input_url)
+                if possible_urls:
+                    final_url = possible_urls[0]  # Use the first valid URL found
+                    st.write(f"Brute-forced URL: {final_url}")
+                else:
+                    st.write("No valid URLs found based on the wordlist.")
+            else:
+                st.write(f"{input_url} Status: 200 (OK)")
+        except Exception as e:
+            st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
 
     # Continue with phishing detection
     # Extract features from the URL and convert it into a dataframe
@@ -179,7 +189,7 @@ if input_url != "":
         st.write(features_dataframe)
     except Exception as e:
         print(e)
-        st.error("Not sure, what went wrong. We'll get back to you shortly!")
+        st.error("Not sure what went wrong. We'll get back to you shortly!")
 
 else:
     st.write("")
