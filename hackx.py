@@ -116,7 +116,7 @@ if input_url != "":
     #         st.write(f"{final_url} Status: 200 (OK)")
     # except Exception as e:
     #     st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
-      try:
+try:
     response = requests.get(final_url)  # Send a GET request to the URL
     if response.status_code == 200:
         st.write(f"{final_url} Status: 200 (OK) - The website is live and running")
@@ -138,7 +138,6 @@ except requests.RequestException as e:
 except Exception as e:
     print(e)
     st.error("Not sure what went wrong. We'll get back to you shortly.")
-
     # Continue with phishing detection
     # Extract features from the URL and convert it into a dataframe
     features_url = ExtractFeatures().url_to_features(url=final_url)
