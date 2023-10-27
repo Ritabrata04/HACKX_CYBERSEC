@@ -91,15 +91,15 @@ def brute_force_url(base_url):
 
     return found_urls
 
-def has_login_page(url):
-    try:
-        response = requests.get(url)
-        if 'Login' in response.text:
-            return True
-        else:
-            return False
-    except requests.RequestException:
-        return False
+# def has_login_page(url):
+#     try:
+#         response = requests.get(url)
+#         if 'Login' in response.text:
+#             return True
+#         else:
+#             return False
+#     except requests.RequestException:
+#         return False
 
 if input_url != "":
     # Initialize a variable to store the final URL
