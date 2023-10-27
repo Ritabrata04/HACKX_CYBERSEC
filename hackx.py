@@ -107,30 +107,55 @@ if input_url != "":
 # else:
 #     st.write("")
 
-final_url = input_url
+import requests
 
-# Check for 404 errors and attempt to find the correct URL
-try:
-    r = requests.get(input_url)
-    url_status = r.status_code
+# Function to check if a URL returns a 404 error
+def check_404(url):
+    try:
+        response = requests.get(url)
+        return response.status_code == 404
+    except requests.RequestException:
+        return False
 
-    if url_status == 404:
-        st.write(f"{input_url} Status: 404 (Not Found)")
-        
-        # Try to brute force the correct URL by modifying the input_url
-        possible_urls = [input_url.rstrip('/'), input_url + '/', input_url.replace("https://", "http://")]
-        for url in possible_urls:
-            r = requests.get(url)
-            if r.status_code == 200:
-                final_url = url
+# Function to brute force valid URLs
+def brute_force_url(base_url):
+    # This is a simple wordlist for the sake of demonstration.
+    # In real scenarios, you might read from a .txt file.
+    wordlist = ['about', 'contact', 'login', 'signup', 'user', 'admin']
+    
+    found_urls = []
+    for word in wordlist:
+        # Construct new URL to check
+        new_url = base_url + "/" + word
+        if not check_404(new_url):
+            found_urls.append(new_url)
+    
+    return found_urls
+
+if input_url != "":
+    # Initialize a variable to store the final URL
+    final_url = input_url
+
+    # Check for 404 errors and attempt to find the correct URL
+    try:
+        r = requests.get(input_url)
+        url_status = r.status_code
+
+        if url_status == 404:
+            st.write(f"{input_url} Status: 404 (Not Found)")
+            
+            # Try to brute force the correct URL by modifying the input_url
+            possible_urls = brute_force_url(input_url)
+            if possible_urls:
+                final_url = possible_urls[0]  # Use the first valid URL found
                 st.write(f"Brute-forced URL: {final_url}")
-                break
+            else:
+                st.write("No valid URLs found based on the wordlist.")
+        else:
+            st.write(f"{final_url} Status: {url_status}")
 
-    else:
-        st.write(f"{final_url} Status: {url_status}")
-
-except Exception as e:
-    st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
+    except Exception as e:
+        st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
 
     # Continue with phishing detection
     # Extract features from the URL and convert it into a dataframe
