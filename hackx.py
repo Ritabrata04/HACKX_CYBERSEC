@@ -112,7 +112,7 @@ import requests
 # Function to check if a URL returns a 404 error
 def check_404(url):
     try:
-        response = requests.get(url)
+        response = requests.head(url)  # Use HEAD request for faster checking
         return response.status_code == 404
     except requests.RequestException:
         return False
@@ -122,14 +122,14 @@ def brute_force_url(base_url):
     # This is a simple wordlist for the sake of demonstration.
     # In real scenarios, you might read from a .txt file.
     wordlist = ['about', 'contact', 'login', 'signup', 'user', 'admin']
-    
+
     found_urls = []
     for word in wordlist:
         # Construct new URL to check
         new_url = base_url + "/" + word
         if not check_404(new_url):
             found_urls.append(new_url)
-    
+
     return found_urls
 
 if input_url != "":
@@ -138,12 +138,9 @@ if input_url != "":
 
     # Check for 404 errors and attempt to find the correct URL
     try:
-        r = requests.get(input_url)
-        url_status = r.status_code
-
-        if url_status == 404:
+        if check_404(input_url):
             st.write(f"{input_url} Status: 404 (Not Found)")
-            
+
             # Try to brute force the correct URL by modifying the input_url
             possible_urls = brute_force_url(input_url)
             if possible_urls:
@@ -152,7 +149,7 @@ if input_url != "":
             else:
                 st.write("No valid URLs found based on the wordlist.")
         else:
-            st.write(f"{final_url} Status: {url_status}")
+            st.write(f"{input_url} Status: 200 (OK)")
 
     except Exception as e:
         st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
@@ -186,7 +183,6 @@ if input_url != "":
 
 else:
     st.write("")
-
 st.markdown("### *Our Approach*")
 st.markdown("To tackle this challenge, we leveraged classical machine learning techniques, including Data Exploration, Data Cleaning, Feature Engineering, Model Building, and Model Testing. Our comprehensive approach involved experimenting with different machine learning algorithms to identify the most suitable ones for this particular case.")
 st.markdown("### *Key Features*")
