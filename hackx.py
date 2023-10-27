@@ -13,14 +13,6 @@ import pandas as pd
 from extract_features import ExtractFeatures
 from PIL import Image
 
-# image2 = Image.open('muj logo.png')
-# st.image(image2, width=200)
-
-# image = Image.open('hackxlogowhite.png')
-# # st.image(image, width=200)
-# col1, col2, col3 = st.columns([20, 10, 0.1])
-# col2.image(image, use_column_width=True)
-
 image2 = Image.open('muj logo.png')
 image = Image.open('hackxlogowhite.png')
 
@@ -40,18 +32,6 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
-
-# st.markdown(
-#     "<div style='display: flex; align-items: center; margin-bottom: -35px;'>"
-#     "<h1 style='color:#F862FC; margin-center: 10px;'>yoU aRe reaL</h1>",
-#     unsafe_allow_html=True
-# )
-
-# image=Image.open('phising1.jpeg')
-# width=750
-# height=700
-# image_new=image.resize((width,height))
-# st.image(image_new)
 
 @st.cache_resource
 def get_model():
@@ -74,7 +54,6 @@ def get_model():
 # Takes in user input
 input_url = st.text_area("Are you sure your 'bank' sent that link?")
 
-
 if input_url != "":
 
     # Extracts features from the URL and converts it into a dataframe
@@ -86,26 +65,6 @@ if input_url != "":
     st.write("Snooping around...")
     st.cache_data.clear()
     prediction_str = ""
-
-    # Predict outcome using extracted features
-#     try:
-#         phishing_url_detector = get_model()
-#         prediction = phishing_url_detector.predict(features_dataframe)
-#         if prediction == int(True):
-#             prediction_str = 'This website might be malicious!'
-#         elif prediction == int(False):
-#             prediction_str = 'Website is safe to proceed!'
-#         else:
-#             prediction_str = ''
-#         st.write(prediction_str)
-#         st.write(features_dataframe)
-
-#     except Exception as e:
-#         print(e)
-#         st.error("Not sure, what went wrong. We'll get back to you shortly!")
-
-# else:
-#     st.write("")
 
 import requests
 
@@ -142,21 +101,43 @@ if input_url != "":
         st.write(f"{input_url} - Removed '404/': {final_url}")
 
     # Check for 404 errors
-    try:
-        if check_404(final_url):
-            st.write(f"{final_url} Status: 404 (Not Found) - Initiating Brute Force")
+    # try:
+    #     if check_404(final_url):
+    #         st.write(f"{final_url} Status: 404 (Not Found) - Initiating Brute Force")
 
-            # Try to brute force the correct URL by modifying the final_url
-            possible_urls = brute_force_url(final_url)
-            if possible_urls:
-                final_url = possible_urls[0]  # Use the first valid URL found
-                st.write(f"Brute-forced URL: {final_url}")
-            else:
-                st.write("No valid URLs found based on the wordlist.")
+    #         # Try to brute force the correct URL by modifying the final_url
+    #         possible_urls = brute_force_url(final_url)
+    #         if possible_urls:
+    #             final_url = possible_urls[0]  # Use the first valid URL found
+    #             st.write(f"Brute-forced URL: {final_url}")
+    #         else:
+    #             st.write("No valid URLs found based on the wordlist.")
+    #     else:
+    #         st.write(f"{final_url} Status: 200 (OK)")
+    # except Exception as e:
+    #     st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
+      try:
+    response = requests.get(final_url)  # Send a GET request to the URL
+    if response.status_code == 200:
+        st.write(f"{final_url} Status: 200 (OK) - The website is live and running")
+    else:
+        st.write(f"{final_url} Status: {response.status_code} - The website may have issues")
+
+    if check_404(final_url):
+        st.write(f"{final_url} Status: 404 (Not Found) - Initiating Brute Force")
+
+        # Try to brute force the correct URL by modifying the final_url
+        possible_urls = brute_force_url(final_url)
+        if possible_urls:
+            final_url = possible_urls[0]  # Use the first valid URL found
+            st.write(f"Brute-forced URL: {final_url}")
         else:
-            st.write(f"{final_url} Status: 200 (OK)")
-    except Exception as e:
-        st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
+            st.write("No valid URLs found based on the wordlist")
+except requests.RequestException as e:
+    st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
+except Exception as e:
+    print(e)
+    st.error("Not sure what went wrong. We'll get back to you shortly.")
 
     # Continue with phishing detection
     # Extract features from the URL and convert it into a dataframe
