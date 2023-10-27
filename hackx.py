@@ -154,5 +154,4 @@ st.markdown("- Live URL Detection: Utilizes HTTPS GET command calling input URL 
 st.markdown("- Checkmate 404s: Bruteforcing URL additions/removal to resolve 404 error using predefined appending/prepending vocabulary .")
 st.markdown("- Houston,I'm In: Iterating through combinations of usernames and passwords in a bruteforce approach to attempt login authentication of input URL")
 st.markdown("### *Results*")
-st.markdown("Our solution provides a robust and reliable method for delivering the mentioned features.A lot of scope for future work is possible,due to the intensive constraints of the HACKX Hackathon and our steady increase of expertise in the field. We aim to pursue this idea even after the event,forming an industry-scalable solution even more well-rounded than our current prototype!
-Please feel free to contact any of our team members if you want to contribute.")
+st.markdown("Our solution provides a robust and reliable method for delivering the mentioned features.A lot of scope for future work is possible,due to the intensive constraints of the HACKX Hackathon and our steady increase of expertise in the field. We aim to pursue this idea even after the event,forming an industry-scalable solution even more well-rounded than our current prototype!Please feel free to contact any of our team members if you want to contribute.")
