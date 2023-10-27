@@ -144,7 +144,7 @@ if input_url != "":
                 ip_addresses = socket.getaddrinfo(domain, None)
             except socket.gaierror as e:
                 st.write(f"{final_url} Site does not exist")
-            return
+                return
             features_url = ExtractFeatures().url_to_features(url=final_url)
         except Exception as e:
             print(e)
