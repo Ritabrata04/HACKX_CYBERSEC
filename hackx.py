@@ -143,7 +143,7 @@ if input_url != "":
             features_url = ExtractFeatures().url_to_features(url=final_url)
         except socket.gaierror as e:
             st.write(f"{final_url} Site does not exist")
-else:
+
     features_url = ExtractFeatures().url_to_features(url=final_url)
     features_dataframe = pd.DataFrame.from_dict([features_url])
     features_dataframe = features_dataframe.fillna(-1)
