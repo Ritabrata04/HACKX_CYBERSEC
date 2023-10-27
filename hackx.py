@@ -139,7 +139,7 @@ if input_url != "":
         print(e)
         st.error("Not sure what went wrong. We'll get back to you shortly.")
     else:
-    st.write(f"{final_url} Site does not exist")
+        st.write(f"{final_url} Site does not exist")
     
     # Continue with phishing detection
     # Extract features from the URL and convert it into a dataframe
