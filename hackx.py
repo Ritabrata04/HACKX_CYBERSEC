@@ -110,13 +110,35 @@ if input_url != "":
     try:
         r = requests.get(input_url)
         url_status = r.status_code
+
         if url_status == 404:
-            st.write(f"{input_url} Status: 404 Not Found. Attempting to brute force...")
-            # Perform brute force or additional actions here
+            st.write(f"{input_url} Status: 404 (Not Found)")
+            
+            # Try to brute force the correct URL by modifying the input_url
+            possible_urls = [input_url.rstrip('/'), input_url + '/', input_url.replace("https://", "http://")]
+            for url in possible_urls:
+                r = requests.get(url)
+                if r.status_code == 200:
+                    final_url = url
+                    st.write(f"Brute-forced URL: {final_url}")
+                    break
+
         else:
-            st.write(f"{input_url} Status: {url_status}")
+            st.write(f"{final_url} Status: {url_status}")
+
     except Exception as e:
-        st.write(f"{input_url} NA FAILED TO CONNECT {str(e)}")
+        st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
+
+    # Continue with phishing detection
+    # Extract features from the URL and convert it into a dataframe
+    features_url = ExtractFeatures().url_to_features(url=final_url)
+    features_dataframe = pd.DataFrame.from_dict([features_url])
+    features_dataframe = features_dataframe.fillna(-1)
+    features_dataframe = features_dataframe.astype(int)
+
+    st.write("Snooping around...")
+    st.cache_data.clear()
+    prediction_str = ""
 
     # Predict outcome using extracted features
     try:
@@ -132,7 +154,7 @@ if input_url != "":
         st.write(features_dataframe)
     except Exception as e:
         print(e)
-        st.error("Not sure what went wrong. We'll get back to you shortly!")
+        st.error("Not sure, what went wrong. We'll get back to you shortly!")
 
 else:
     st.write("")
