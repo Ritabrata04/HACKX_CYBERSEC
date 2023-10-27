@@ -108,27 +108,28 @@ if input_url != "":
 #     st.write("")
 
     try:
-          r = requests.get(input_url)
-          url_status = r.status_code
-          st.write(f"{input_url} Status: {url_status}")
-      except Exception as e:
-          st.write(f"{input_url} NA FAILED TO CONNECT {str(e)}")
-          
-      try:
-          phishing_url_detector = get_model()
-          prediction = phishing_url_detector.predict(features_dataframe)
-          if prediction == int(True):
-              prediction_str = 'This website might be malicious!'
-          elif prediction == int(False):
-              prediction_str = 'Website is safe to proceed!'
-          else:
-              prediction_str = ''
-              st.write(prediction_str)
-              st.write(features_dataframe)
-      except Exception as e:
-          print(e)
-          st.error("Not sure, what went wrong. We'll get back to you shortly!")
-    
+        r = requests.get(input_url)
+        url_status = r.status_code
+        st.write(f"{input_url} Status: {url_status}")
+    except Exception as e:
+        st.write(f"{input_url} NA FAILED TO CONNECT {str(e)}")
+
+    # Predict outcome using extracted features
+    try:
+        phishing_url_detector = get_model()
+        prediction = phishing_url_detector.predict(features_dataframe)
+        if prediction == int(True):
+            prediction_str = 'This website might be malicious!'
+        elif prediction == int(False):
+            prediction_str = 'Website is safe to proceed!'
+        else:
+            prediction_str = ''
+        st.write(prediction_str)
+        st.write(features_dataframe)
+    except Exception as e:
+        print(e)
+        st.error("Not sure, what went wrong. We'll get back to you shortly!")
+
 else:
     st.write("")
 
