@@ -138,18 +138,6 @@ for username in usernames:
             'username': username,
             'password': password
         }
-
-        # Send a POST request to the login URL
-
-    
-          
-            
-    
-
-          
-          Expand Down
-    
-    
   
         response = session.post(login_url, data=login_data)
         # Check if the login was successful based on the response
