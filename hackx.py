@@ -219,36 +219,7 @@ if input_url != "":
 else:
     st.write("")
 
-    features_url = ExtractFeatures().url_to_features(url=final_url)
-    features_dataframe = pd.DataFrame.from_dict([features_url])
-    features_dataframe = features_dataframe.fillna(-1)
-    features_dataframe = features_dataframe.astype(int)
-
-    # st.write("Snooping around...")
-    st.cache_data.clear()
-    prediction_str = ""
-
-    # Predict outcome using extracted features
-    try:
-        phishing_url_detector = get_model()
-        prediction = phishing_url_detector.predict(features_dataframe)
-        if prediction == int(True):
-            prediction_str = 'This website might be malicious!'
-        elif prediction == int(False):
-            prediction_str = 'Website is safe to proceed!'
-        else:
-            prediction_str = ''
-        st.write(prediction_str)
-        st.write(features_dataframe)
-    except Exception as e:
-        print(e)
-        st.error("Not sure what went wrong. We'll get back to you shortly!")
-
-else:
-    st.write("")
-
-
-st.markdown("### *No Ma'am,I'm NOT calling from Microsoft!*")
+st.markdown("### *Our Approach*")
 st.markdown("To tackle this challenge, we leveraged classical machine learning techniques, including Data Exploration, Data Cleaning, Feature Engineering, Model Building, and Model Testing. Our comprehensive approach involved experimenting with different machine learning algorithms to identify the most suitable ones for this particular case.")
 st.markdown("### *Key Features*")
 st.markdown("- URL-Based Features: We extracted insightful features from the URL itself to capture potential indicators of phishing behavior.")
