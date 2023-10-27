@@ -161,7 +161,7 @@ if input_url != "":
     features_dataframe = pd.DataFrame.from_dict([features_url])
     features_dataframe = features_dataframe.fillna(-1)
     features_dataframe = features_dataframe.astype(int)
-        st.error("Not sure what went wrong. We'll get back to you shortly.")
+    st.error("Not sure what went wrong. We'll get back to you shortly.")
 
 # if input_url != "":
 #     # Initialize a variable to store the final URL
