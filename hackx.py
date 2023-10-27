@@ -107,27 +107,30 @@ if input_url != "":
 # else:
 #     st.write("")
 
-    try:
-        r = requests.get(input_url)
-        url_status = r.status_code
+final_url = input_url
 
-        if url_status == 404:
-            st.write(f"{input_url} Status: 404 (Not Found)")
-            
-            # Try to brute force the correct URL by modifying the input_url
-            possible_urls = [input_url.rstrip('/'), input_url + '/', input_url.replace("https://", "http://")]
-            for url in possible_urls:
-                r = requests.get(url)
-                if r.status_code == 200:
-                    final_url = url
-                    st.write(f"Brute-forced URL: {final_url}")
-                    break
+# Check for 404 errors and attempt to find the correct URL
+try:
+    r = requests.get(input_url)
+    url_status = r.status_code
 
-        else:
-            st.write(f"{final_url} Status: {url_status}")
+    if url_status == 404:
+        st.write(f"{input_url} Status: 404 (Not Found)")
+        
+        # Try to brute force the correct URL by modifying the input_url
+        possible_urls = [input_url.rstrip('/'), input_url + '/', input_url.replace("https://", "http://")]
+        for url in possible_urls:
+            r = requests.get(url)
+            if r.status_code == 200:
+                final_url = url
+                st.write(f"Brute-forced URL: {final_url}")
+                break
 
-    except Exception as e:
-        st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
+    else:
+        st.write(f"{final_url} Status: {url_status}")
+
+except Exception as e:
+    st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
 
     # Continue with phishing detection
     # Extract features from the URL and convert it into a dataframe
