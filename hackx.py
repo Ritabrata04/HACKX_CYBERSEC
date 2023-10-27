@@ -148,7 +148,7 @@ for username in usernames:
 session.close()
 st.markdown("### *No Ma'am,He's NOT Calling From Microsoft !*")
 st.markdown("Our chosen problem statement focussed on Web Safety through URL fuzzing,status check and bruteforcing exceptions and authentications.We employed the most viable ML models,exception handling systems and basic HTTPS request calls to deliver these features. Please try the interactive input above and let us know your feedback.")
-st.markdown("### *Key Objedtives*")
+st.markdown("### *Key Objectives*")
 st.markdown("- URL-Based Feature Extraction and Fuzzing: Machine Learning Based Approaches for determining the authenticity of input URL through fuzzing.")
 st.markdown("- Live URL Detection: Utilizes HTTPS GET command calling input URL as argument and obtains site status in console log,which is then brought about in frontend as corresponding message.")
 st.markdown("- Checkmate 404s: Bruteforcing URL additions/removal to resolve 404 error using predefined appending/prepending vocabulary .")
