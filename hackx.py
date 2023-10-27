@@ -139,10 +139,11 @@ if input_url != "":
         print(e)
         st.error("Not sure what went wrong. We'll get back to you shortly.")
     else:
-        st.write(f"{final_url} Site does not exist")
-    
-    # Continue with phishing detection
-    # Extract features from the URL and convert it into a dataframe
+        try:
+            features_url = ExtractFeatures().url_to_features(url=final_url)
+        except socket.gaierror as e:
+            st.write(f"{final_url} Site does not exist")
+else:
     features_url = ExtractFeatures().url_to_features(url=final_url)
     features_dataframe = pd.DataFrame.from_dict([features_url])
     features_dataframe = features_dataframe.fillna(-1)
