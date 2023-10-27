@@ -107,7 +107,7 @@ if input_url != "":
 # else:
 #     st.write("")
 
-      try:
+       try:
           r = requests.get(input_url)
           url_status = r.status_code
           st.write(f"{input_url} Status: {url_status}")
