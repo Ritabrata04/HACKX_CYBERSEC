@@ -88,41 +88,50 @@ if input_url != "":
     prediction_str = ""
 
     # Predict outcome using extracted features
+#     try:
+#         phishing_url_detector = get_model()
+#         prediction = phishing_url_detector.predict(features_dataframe)
+#         if prediction == int(True):
+#             prediction_str = 'This website might be malicious!'
+#         elif prediction == int(False):
+#             prediction_str = 'Website is safe to proceed!'
+#         else:
+#             prediction_str = ''
+#         st.write(prediction_str)
+#         st.write(features_dataframe)
+
+#     except Exception as e:
+#         print(e)
+#         st.error("Not sure, what went wrong. We'll get back to you shortly!")
+
+# else:
+#     st.write("")
+
     try:
-        phishing_url_detector = get_model()
-        prediction = phishing_url_detector.predict(features_dataframe)
-        if prediction == int(True):
-            prediction_str = 'This website might be malicious!'
-        elif prediction == int(False):
-            prediction_str = 'Website is safe to proceed!'
-        else:
-            prediction_str = ''
-        st.write(prediction_str)
-        st.write(features_dataframe)
-
-    except Exception as e:
-        print(e)
-        st.error("Not sure, what went wrong. We'll get back to you shortly!")
-
-else:
-    st.write("")
-
-st.markdown("### *Check URL Statuses*")
-
-# User can input a list of URLs to check
-input_urls = st.text_area("Enter a list of URLs to check (one URL per line)")
-
-if input_urls:
-    # Split the input into a list of URLs
-    urls_to_check = input_urls.split('\n')
+            r = requests.get(input_url)
+            url_status = r.status_code
+            st.write(f"{input_url} Status: {url_status}")
+        except Exception as e:
+            st.write(f"{input_url} NA FAILED TO CONNECT {str(e)}")
     
-    # Call the function to check URL statuses
-    status_results = get_url_status(urls_to_check)
+        # Predict outcome using extracted features
+        try:
+            phishing_url_detector = get_model()
+            prediction = phishing_url_detector.predict(features_dataframe)
+            if prediction == int(True):
+                prediction_str = 'This website might be malicious!'
+            elif prediction == int(False):
+                prediction_str = 'Website is safe to proceed!'
+            else:
+                prediction_str = ''
+            st.write(prediction_str)
+            st.write(features_dataframe)
+        except Exception as e:
+            print(e)
+            st.error("Not sure, what went wrong. We'll get back to you shortly!")
     
-    # Display the results
-    st.write("URL Status Results:")
-    for result in status_results:
-        st.write(result)
+    else:
+        st.write("")
 
 st.markdown("### *Our Approach*")
 st.markdown("To tackle this challenge, we leveraged classical machine learning techniques, including Data Exploration, Data Cleaning, Feature Engineering, Model Building, and Model Testing. Our comprehensive approach involved experimenting with different machine learning algorithms to identify the most suitable ones for this particular case.")
