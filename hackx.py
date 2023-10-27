@@ -110,7 +110,11 @@ if input_url != "":
     try:
         r = requests.get(input_url)
         url_status = r.status_code
-        st.write(f"{input_url} Status: {url_status}")
+        if url_status == 404:
+            st.write(f"{input_url} Status: 404 Not Found. Attempting to brute force...")
+            # Perform brute force or additional actions here
+        else:
+            st.write(f"{input_url} Status: {url_status}")
     except Exception as e:
         st.write(f"{input_url} NA FAILED TO CONNECT {str(e)}")
 
@@ -128,7 +132,7 @@ if input_url != "":
         st.write(features_dataframe)
     except Exception as e:
         print(e)
-        st.error("Not sure, what went wrong. We'll get back to you shortly!")
+        st.error("Not sure what went wrong. We'll get back to you shortly!")
 
 else:
     st.write("")
