@@ -54,7 +54,7 @@ def get_model():
 # Takes in user input
 input_url = st.text_area("Are you sure your 'bank' sent that link?")
 
-if input_url != "": #WHAT IS THIS DOING HERE?
+if input_url != "":
 
     # Extracts features from the URL and converts it into a dataframe
     features_url = ExtractFeatures().url_to_features(url=input_url)
@@ -91,89 +91,35 @@ def brute_force_url(base_url):
 
     return found_urls
 
-# def has_login_page(url):
-#     try:
-#         response = requests.get(url)
-#         if 'Login' in response.text:
-#             return True
-#         else:
-#             return False
-#     except requests.RequestException:
-#         return False
-
-if input_url != "":
-    features_url = ExtractFeatures().url_to_features(url=input_url)
-    features_dataframe = pd.DataFrame.from_dict([features_url])
-    features_dataframe = features_dataframe.fillna(-1)
-    features_dataframe = features_dataframe.astype(int)
-    # Initialize a variable to store the final URL
-    final_url = input_url
-
-    # Check if the input URL ends with "404/" and remove it
-    if input_url.endswith("404/"):
-        final_url = input_url.rsplit("404/", 1)[0]
-        st.write(f"{input_url} - Removed '404/': {final_url}")
-
+def has_login_page(url):
     try:
-        response = requests.get(final_url)  # Send a GET request to the URL
-        if response.status_code == 200:
-            st.write(f"{final_url} Status: 200 (OK) - The website is live and running")
+        response = requests.get(url)
+        if 'Login' in response.text:
+            return True
         else:
-            st.write(f"{final_url} Status: {response.status_code} - The website may have issues")
-    
-        if check_404(final_url):
-            st.write(f"{final_url} Status: 404 (Not Found) - Initiating Brute Force")
-    
-            # Try to brute force the correct URL by modifying the final_url
-            possible_urls = brute_force_url(final_url)
-            if possible_urls:
-                final_url = possible_urls[0]  # Use the first valid URL found
-                st.write(f"Brute-forced URL: {final_url}")
-            else:
-                st.write("No valid URLs found based on the wordlist")
-                st.write("Attempting to brute force login...")
-                usernames = ['user1', 'user2', 'admin']
-                passwords = ['password1', 'password2', '123456']
-                login_url = final_url 
-                session = requests.Session()
-                for username in usernames:
-                    for password in passwords:
-                        # Prepare the login data
-                        login_data = {
-                            'username': username,
-                            'password': password
-                        }
-                        try:
-                            # Send a POST request to the login URL
-                            response = session.post(login_url, data=login_data)
-                            response_text = response.text
-
-                            # Check if the login was successful based on the response
-                            if 'Login Successful' in response_text:
-                                st.write(f"Successful login - Username: {username}, Password: {password}")
-                                break
-                        except requests.exceptions.RequestException as e:
-                            st.write(f"Request failed: {str(e)}")
-                session.close()
-    except requests.RequestException as e:
-        st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
-    except Exception as e:
-        print(e)
-        st.error("Not sure what went wrong. We'll get back to you shortly.")
+            return False
+    except requests.RequestException:
+        return False
 
 # if input_url != "":
 #     # Initialize a variable to store the final URL
 #     final_url = input_url
 
 #     # Check if the input URL ends with "404/" and remove it
-#     if final_url.endswith("404/"):
-#         final_url = final_url.rsplit("404/", 1)[0]
+#     if input_url.endswith("404/"):
+#         final_url = input_url.rsplit("404/", 1)[0]
 #         st.write(f"{input_url} - Removed '404/': {final_url}")
 
 #     try:
+#         response = requests.get(final_url)  # Send a GET request to the URL
+#         if response.status_code == 200:
+#             st.write(f"{final_url} Status: 200 (OK) - The website is live and running")
+#         else:
+#             st.write(f"{final_url} Status: {response.status_code} - The website may have issues")
+    
 #         if check_404(final_url):
 #             st.write(f"{final_url} Status: 404 (Not Found) - Initiating Brute Force")
-
+    
 #             # Try to brute force the correct URL by modifying the final_url
 #             possible_urls = brute_force_url(final_url)
 #             if possible_urls:
@@ -181,47 +127,97 @@ if input_url != "":
 #                 st.write(f"Brute-forced URL: {final_url}")
 #             else:
 #                 st.write("No valid URLs found based on the wordlist")
-#         else:
-#             st.write(f"{final_url} Status: 200 (OK)")
+#                 st.write("Attempting to brute force login...")
+#                 usernames = ['user1', 'user2', 'admin']
+#                 passwords = ['password1', 'password2', '123456']
+#                 login_url = final_url 
+#                 session = requests.Session()
+#                 for username in usernames:
+#                     for password in passwords:
+#                         # Prepare the login data
+#                         login_data = {
+#                             'username': username,
+#                             'password': password
+#                         }
+#                         try:
+#                             # Send a POST request to the login URL
+#                             response = session.post(login_url, data=login_data)
+#                             response_text = response.text
 
-#         if has_login_page(final_url):
-#             st.write(f"{final_url} has a login page - Initiating login attempts")
-
-#             # List of username and password pairs to try
-#             usernames = ['user1', 'user2', 'admin']
-#             passwords = ['password1', 'password2', '123456']
-#             login_url = final_url  # Replace with the actual login URL
-#             session = requests.Session()
-
-#             for username in usernames:
-#                 for password in passwords:
-#                     # Prepare the login data
-#                     login_data = {
-#                         'username': username,
-#                         'password': password
-#                     }
-
-#                     try:
-#                         # Send a POST request to the login URL
-#                         response = session.post(login_url, data=login_data)
-#                         response_text = response.text
-
-#                         # Check if the login was successful based on the response
-#                         if 'Login Successful' in response_text:
-#                             st.write(f"Successful login - Username: {username}, Password: {password}")
-#                             break
-#                     except requests.exceptions.RequestException as e:
-#                         st.write(f"Request failed: {str(e)}")
-
-#             # Close the session
-#             session.close()
+#                             # Check if the login was successful based on the response
+#                             if 'Login Successful' in response_text:
+#                                 st.write(f"Successful login - Username: {username}, Password: {password}")
+#                                 break
+#                         except requests.exceptions.RequestException as e:
+#                             st.write(f"Request failed: {str(e)}")
+#                 session.close()
 #     except requests.RequestException as e:
 #         st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
 #     except Exception as e:
 #         print(e)
 #         st.error("Not sure what went wrong. We'll get back to you shortly.")
-# else:
-#     st.write("")
+
+if input_url != "":
+    # Initialize a variable to store the final URL
+    final_url = input_url
+
+    # Check if the input URL ends with "404/" and remove it
+    if final_url.endswith("404/"):
+        final_url = final_url.rsplit("404/", 1)[0]
+        st.write(f"{input_url} - Removed '404/': {final_url}")
+
+    try:
+        if check_404(final_url):
+            st.write(f"{final_url} Status: 404 (Not Found) - Initiating Brute Force")
+
+            # Try to brute force the correct URL by modifying the final_url
+            possible_urls = brute_force_url(final_url)
+            if possible_urls:
+                final_url = possible_urls[0]  # Use the first valid URL found
+                st.write(f"Brute-forced URL: {final_url}")
+            else:
+                st.write("No valid URLs found based on the wordlist")
+        else:
+            st.write(f"{final_url} Status: 200 (OK)")
+
+        if has_login_page(final_url):
+            st.write(f"{final_url} has a login page - Initiating login attempts")
+
+            # List of username and password pairs to try
+            usernames = ['user1', 'user2', 'admin']
+            passwords = ['password1', 'password2', '123456']
+            login_url = final_url  # Replace with the actual login URL
+            session = requests.Session()
+
+            for username in usernames:
+                for password in passwords:
+                    # Prepare the login data
+                    login_data = {
+                        'username': username,
+                        'password': password
+                    }
+
+                    try:
+                        # Send a POST request to the login URL
+                        response = session.post(login_url, data=login_data)
+                        response_text = response.text
+
+                        # Check if the login was successful based on the response
+                        if 'Login Successful' in response_text:
+                            st.write(f"Successful login - Username: {username}, Password: {password}")
+                            break
+                    except requests.exceptions.RequestException as e:
+                        st.write(f"Request failed: {str(e)}")
+
+            # Close the session
+            session.close()
+    except requests.RequestException as e:
+        st.write(f"{final_url} NA FAILED TO CONNECT {str(e)}")
+    except Exception as e:
+        print(e)
+        st.error("Not sure what went wrong. We'll get back to you shortly.")
+else:
+    st.write("")
 
 
 st.markdown("### *No Ma'am,I'm NOT calling from Microsoft!*")
@@ -234,4 +230,3 @@ st.markdown("- Content-Based Features: Leveraging the textual content present on
 
 st.markdown("### *Results*")
 st.markdown("Our solution provides a robust and reliable method for predicting whether a domain is authentic or fake. By utilizing the power of machine learning, we have created a model that can effectively discern the telltale signs of phishing attempts, enabling users to make informed decisions and avoid potential security breaches.")
-
