@@ -54,17 +54,17 @@ def get_model():
 # Takes in user input
 input_url = st.text_area("Are you sure your 'bank' sent that link?")
 
-# if input_url != "": #WHAT IS THIS DOING HERE?
+if input_url != "": #WHAT IS THIS DOING HERE?
 
-#     # Extracts features from the URL and converts it into a dataframe
-#     features_url = ExtractFeatures().url_to_features(url=input_url)
-#     features_dataframe = pd.DataFrame.from_dict([features_url])
-#     features_dataframe = features_dataframe.fillna(-1)
-#     features_dataframe = features_dataframe.astype(int)
+    # Extracts features from the URL and converts it into a dataframe
+    features_url = ExtractFeatures().url_to_features(url=input_url)
+    features_dataframe = pd.DataFrame.from_dict([features_url])
+    features_dataframe = features_dataframe.fillna(-1)
+    features_dataframe = features_dataframe.astype(int)
 
-#     st.write("Snooping around...")
-#     st.cache_data.clear()
-#     prediction_str = ""
+    st.write("Snooping around...")
+    st.cache_data.clear()
+    prediction_str = ""
 
 import requests
 
