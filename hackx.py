@@ -169,8 +169,8 @@ for username in usernames:
     for password in passwords:
         # Prepare the login data
         login_data = {
-            'username': "danush.s.khanna@gmail.com",
-            'password': "DANNYboyDk"
+            'username': username,
+            'password': password
         }
 
         # Send a POST request to the login URL
