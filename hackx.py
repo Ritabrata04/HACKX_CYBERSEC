@@ -146,7 +146,7 @@ for username in usernames:
             break
 # Close the session
 session.close()
-st.markdown("### *No Ma'am,He's NOT Calling From Microsoft !*")
+st.markdown("### *No Ma'am, He's NOT Calling From Microsoft !*")
 st.markdown("Our chosen problem statement focussed on Web Safety through URL fuzzing,status check and bruteforcing exceptions and authentications.We employed the most viable ML models,exception handling systems and basic HTTPS request calls to deliver these features. Please try the interactive input above and let us know your feedback.")
 st.markdown("### *Key Objectives*")
 st.markdown("- URL-Based Feature Extraction and Fuzzing: Machine Learning Based Approaches for determining the authenticity of input URL through fuzzing.")
